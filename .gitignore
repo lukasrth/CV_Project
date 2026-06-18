@@ -1,0 +1,22 @@
+# Python Environments
+.venv/
+__pycache__/
+
+# Heavy Data & Weights
+*.pt
+*.glb
+*.obj
+*.jpg
+*.png
+
+# Project specific folders (just in case you ever move them here)
+synthetic_output/
+sanity_checks/
+yolo_runs/
+datasets/
+software/
+
+
+
+
+

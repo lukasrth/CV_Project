@@ -1,0 +1,12 @@
+# Absolute paths to your data
+# Note: For this quick test, we are using the same folder for train and val.
+# For the final project, you will want separate folders!
+train: /export/data/lriethm/CV_Project/synthetic_output/
+val: /export/data/lriethm/CV_Project/synthetic_output/
+
+# Number of classes
+nc: 1
+
+# Class names
+names:
+  0: damaged_helmet
