@@ -3,7 +3,7 @@ from roboflow import Roboflow
 
 try:
     print("1. Initializing Roboflow API...")
-    rf = Roboflow(api_key="eC5LMqP2r4dYSBkc3Gjf")
+    rf = Roboflow(api_key="------")
     
     print("2. Connecting to workspace and project...")
     project = rf.workspace("alina-meng-m-gmail-com").project("real_origami_bbox")
