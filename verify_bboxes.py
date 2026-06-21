@@ -5,8 +5,8 @@ import glob
 # ==========================================
 # 1. PATHS (Update if needed)
 # ==========================================
-OUT_DIR = "/export/data/lriethm/CV_Project/synthetic_output/"
-DEBUG_DIR = "/export/data/lriethm/CV_Project/sanity_checks/"
+OUT_DIR = "/export/data/lriethm/CV_Project/synthetic_output_2/"
+DEBUG_DIR = "/export/data/lriethm/CV_Project/sanity_checks_2/"
 
 # Create a folder for the debug images
 os.makedirs(DEBUG_DIR, exist_ok=True)

@@ -13,7 +13,7 @@ print("Starting training...")
 # Start training!
 results = model.train(
     data='dataset.yaml',   # Path to your config file
-    epochs=50,             # Number of training loops
+    epochs=1000,             # Number of training loops
     imgsz=640,             # Image size (YOLO standard)
     batch=16,              # How many images to process at once
     project=RUNS_DIR,      # Where to save the output weights and charts

@@ -11,7 +11,7 @@ import glob
 # ==========================================
 GLB_PATH = "/export/data/lriethm/CV_Project/assets/3DModel_origami.glb"
 BG_DIR = "/export/data/lriethm/CV_Project/datasets/val2017/" # COCO Backgrounds
-OUT_DIR = "/export/data/lriethm/CV_Project/synthetic_output/"
+OUT_DIR = "/export/data/lriethm/CV_Project/synthetic_output_2/"
 NUM_IMAGES = 2 # Change to 5000+ for the final run
 CLASS_ID = 0 # YOLO class ID for your object
 
@@ -119,6 +119,18 @@ target_obj = imported_objects[0]
 # FORCE Blender to accept standard XYZ degrees instead of Quaternions!
 target_obj.rotation_mode = 'XYZ'
 
+# ==========================================
+print("Stripping baked textures to destroy the red dot shortcut...")
+target_obj.data.materials.clear() # This deletes the texture with the red dot
+
+# Create a clean, blank material to replace it
+paper_mat = bpy.data.materials.new(name="DynamicPaper")
+paper_mat.use_nodes = True
+target_obj.data.materials.append(paper_mat)
+# ==========================================
+
+
+
 
 # C. Setup Lighting
 bpy.ops.object.light_add(type='SUN', location=(0, 0, 5))
@@ -130,12 +142,12 @@ background_files = glob.glob(os.path.join(BG_DIR, "*.jpg"))
 
 # E. THE RENDERING LOOP
 for i in range(NUM_IMAGES):
-    print(f"Rendering image {i+1}/{NUM_IMAGES}...")
+    #print(f"Rendering image {i+1}/{NUM_IMAGES}...")
 
     # ============================================
     # 1. ORBIT THE CAMERA (Replaces Object Rotation/Scale)
     # ============================================
-    scale_factor = random.uniform(1.0, 3.0)
+    scale_factor = random.uniform(3.0, 15.0)
     
     # Loop through our permanent list, not the active selection!
     for obj in imported_objects:
@@ -181,6 +193,10 @@ for i in range(NUM_IMAGES):
     )
     sun.data.energy = random.uniform(1.0, 5.0)
 
+    shade = random.uniform(0.4, 0.9) # Pick a random grayscale value
+    # Apply to the Principled BSDF node (Red, Green, Blue, Alpha)
+    paper_mat.node_tree.nodes["Principled BSDF"].inputs["Base Color"].default_value = (shade, shade, shade, 1.0)
+
     # 3. Assign Random Background
     bg_img_path = random.choice(background_files)
     img = bpy.data.images.load(bg_img_path)
@@ -191,7 +207,7 @@ for i in range(NUM_IMAGES):
     bbox = get_2d_bounding_box(bpy.context.scene, cam, target_obj)
 
     if bbox is None:
-        print("Object off screen, skipping...")
+        #print("Object off screen, skipping...")
         continue # Skip rendering if the object isn't visible
 
     x_c, y_c, w, h = bbox
